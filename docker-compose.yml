@@ -1,0 +1,39 @@
+version: '3.1'
+
+services:
+  app:
+    image: hippam:latest
+    volumes:
+      - ${APP_SRC}:/home/bagus/app
+      - ./volumes/workers:/etc/workers
+    ports:
+      - ${APP_PORT}:80
+    networks:
+      - hippam
+
+  db:
+    container_name: mysql
+    image: mysql:8.0
+    command: mysqld --sql_mode="traditional" --default-authentication-plugin=mysql_native_password --log_bin_trust_function_creators=1
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data:/var/lib/mysql
+    networks:
+      - hippam
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - hippam
+
+networks:
+  hippam:
+    driver: bridge
