@@ -25,6 +25,20 @@ services:
     networks:
       - hippam
 
+  # db:
+  #   container_name: pgsql-pln
+  #   image: postgres:12-alpine
+  #   volumes:
+  #     - ./volumes/db:/var/lib/postgresql/data
+  #   environment:
+  #     - POSTGRES_USER=root
+  #     - POSTGRES_PASSWORD=root
+  #     - POSTGRES_DB=pln-be
+  #   ports:
+  #     - 5432:5432
+  #   networks:
+  #     - pln-be
+
   adminer:
     image: adminer
     container_name: adminer
